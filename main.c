@@ -1,33 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ybenbrai <ybenbrai@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 19:04:07 by ybenbrai          #+#    #+#             */
-/*   Updated: 2022/11/18 19:13:48 by ybenbrai         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdio.h>
 
-int main()
+// print function
+void print(char *s)
 {
-    FILE *fp;
-    char ch;
+	printf(s,10,10,10,10,10,10,10,10,10);
+}
 
-    fp = fopen(__FILE__, "r");
-    if (fp == NULL)
-    {
-        printf("Error while opening the file.\n");
-        return (0);
-    }
-    else
-    {
-        while ((ch = fgetc(fp)) != EOF)
-            printf("%c", ch);
-        fclose(fp);
-    }
-    return (0);
+int	main()
+{
+	// the String to print
+	char *s = "#include <stdio.h>%c%c// print function%cvoid print(char *s)%c{%c     printf(s,10,10,10,10,10,10,10,10,10);%c}%c%cint main()%c{%c%c     // the String to print%c     char *s = %c%s%c;print(s);return (0);}";
+	print(s);
+	return (0);
 }
