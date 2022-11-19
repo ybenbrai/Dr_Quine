@@ -1,15 +1,32 @@
 #include <stdio.h>
 #include <unistd.h>
-#define CODE "#include <stdio.h>%c#include <unistd.h>%c#define CODE %c%s%c%cint main(){%cint i = %d;%cwhile(%d > 0){if (access(%cSully_%d.c%c, F_OK) != -1){%cvoid* fd  = fopen(%cSully_%d.c%c, %cw%c);%c"
+#include <stdlib.h>
+#include <strings.h>
+
+typedef struct s_sully{
+int i;
+FILE *fd;
+char *s;
+char path[30];
+char fn[30];
+char tmp[100];
+} t_sully;
 int main(){
-int i = 5;
-while (i > 0){if (access("Sully_%d.c", F_OK) != -1){
-void* fd  = fopen("Sully_%d.c", "w");
-            break;
-        }
-        else
-            i--;
-    }
-    printf(CODE, 10, 10, 34, CODE, 34, 10, 10, i, 10, i, 34, i, 34, 10, 34, i, 34, 34, 34, 10);
-    return (0);
-}
+t_sully sully;
+sully.s = "#include <stdio.h>%c#include <unistd.h>%1$c#include <stdlib.h>%1$c#include <strings.h>%1$c%1$ctypedef struct s_sully{%1$cint i;%1$cFILE *fd;%1$cchar *s;%1$cchar path[30];%1$cchar fn[30];%1$cchar tmp[100];%1$c} t_sully;%1$cint main(){%1$ct_sully sully;%1$csully.s =%2$c%s%2$c;%1$csully.i = 5;%1$cif (sully.i < 0){return(0);}%1$cif (access(%2$cSully_%4$d.c%2$c, F_OK) != -1){--sully.i;};%1$csprintf(sully.fn, %2$cSully_%4$d%2$c, sully.i);%1$csprintf(sully.path, %2$cSully_%4$d.c%2$c, sully.i);%1$csully.fd = fopen(sully.path,%2$cw%2$c);%1$cif (sully.fd > 0){%1$cfprintf(sully.fd, sully.s, 10,34,sully.s,sully.i);%1$cfclose(sully.fd);%1$cif (sully.i > 0){%1$csprintf(sully.tmp, %2$ccc -o %%s %%s%2$c,sully.fn, sully.path);%1$csystem(sully.tmp);%1$cbzero(sully.tmp, 100);%1$csprintf(sully.tmp, %2$c./%%s%2$c, sully.fn);%1$csystem(sully.tmp);%1$c}return(0);}}";
+sully.i = 5;
+if (sully.i < 0){return(0);}
+if (access("Sully_5.c", F_OK) != -1){--sully.i;};
+sprintf(sully.fn, "Sully_%d", sully.i);
+sprintf(sully.path, "Sully_%d.c", sully.i);
+sully.fd = fopen(sully.path, "w");
+if (sully.fd > 0){
+fprintf(sully.fd, sully.s, 10,34,sully.s,sully.i);
+fclose(sully.fd);
+if (sully.i > 0){
+sprintf(sully.tmp, "cc -o %s %s",sully.fn, sully.path);
+system(sully.tmp);
+bzero(sully.tmp, 100);
+sprintf(sully.tmp, "./%s", sully.fn);
+system(sully.tmp);
+}return(0);}}
