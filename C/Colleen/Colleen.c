@@ -1,15 +1,8 @@
 #include <stdio.h>
-
 // print function
-void print(char *s)
-{
-     printf(s, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 34, s, 34, 10, 10, 10);
-}
-
-int main()
-{
-	// the String to print
-	char *s = "#include <stdio.h>%c%c// print function%cvoid print(char *s)%c{%c     printf(s, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 34, 10, 10, 10);%c}%cint main()%c{%c     // the String to print%c     char *s = %c%s%c;%c     print(s);%c     return (0);%c}";
-	print(s);
-	return (0);
-}
+void print(char *s){printf(s, 10, 34, s);}
+int main(){
+// the String to print
+char *s = "#include <stdio.h>%1$c// print function%1$cvoid print(char *s){printf(s, 10, 34, s);}%1$cint main(){%1$c// the String to print%1$cchar *s = %2$c%s%2$c;%1$cprint(s);%1$creturn (0);}";
+print(s);
+return (0);}
